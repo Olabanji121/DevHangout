@@ -5,7 +5,11 @@ const app = express();
 
 // Connect Database
 connectDB();
+
 app.get('/',(req, res)=>res.send( `API Running...`));
+
+// init middleware bodyParser
+app.use(express.json({extended: false}))
 
 // define route
 
