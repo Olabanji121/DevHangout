@@ -47,36 +47,42 @@ router.post(
 );
 
 // @route POST api/post/update
-// @desc create a post
+// @desc create a post//
 // @access private
-// router.post('/update/:id', auth, async(req, res)=>{
 
-//     const{text} =req.body
-//     try {
+router.post('/update/:id', auth, async(req, res)=>{
 
-//         const post = await Post.findById(req.params.id);
-//         if(text){
+     
+    try {
 
-//              await Post.findOneAndUpdate(
-                
-//                 {text:req.body.text},
-//                 {new: true},
-                
-//               );
-//         }
+        const post = await Post.findById(req.params.id);
+
+       
+
+        if(!post){
+            return res.status(404).json({msg:'Post not found'})
+        }
+
+        if (post.user.toString() !== req.user.id){
+            return res.status(401).json({msg: 'User not Authorized'})
+        }
+
+
+        await Post.findOneAndUpdate(post.text=req.body.text);
+        
             
-        
+        await post.save()
 
-//         res.json(post)
+        res.json(post)
         
-//     } catch (err) {
-//         console.error(err.message);
-//         if(err.kind === 'ObjectId'){
-//              return res.status(404).json({msg:'Post not found'})
-//         }
-//         res.status(500).send('Server Error...')
-//     }
-// });
+    } catch (err) {
+        console.error(err.message);
+        if(err.kind === 'ObjectId'){
+             return res.status(404).json({msg:'Post not found'})
+        }
+        res.status(500).send('Server Error...')
+    }
+});
 
 
 
