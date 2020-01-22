@@ -5,6 +5,7 @@ import {Link, withRouter} from 'react-router-dom'
 import { createProfile} from '../../actions/profile'
 
 const CreateProfile = ({createProfile, history}) => {
+  
   const [formData, setFormData] = useState({
     company: "",
     website: "",
