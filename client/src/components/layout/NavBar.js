@@ -19,13 +19,16 @@ const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <span className="hide-sm">Dashboard</span>
         </Link>
       </li>
+      <li>
+        <Link to="/profiles">Develpoers</Link>
+      </li>
     </ul>
   );
 
   const guestLinks = (
     <ul>
-      <li>
-        <a href="#!">Developers</a>
+       <li>
+        <Link to="/profiles">Develpoers</Link>
       </li>
       <li>
         <Link to="/register">Register</Link>
