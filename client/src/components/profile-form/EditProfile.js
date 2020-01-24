@@ -17,10 +17,13 @@ const EditProfile = ({profile:{profile, loading}, createProfile, getCurrentProfi
     facebook: "",
     twitter: "",
     instagram: "",
-    linkedin: ""
+    linkedin: "",
+    photo: ' ',
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  const [delay, setDelay] = useState(false)
 
   useEffect(() => {
       getCurrentProfile()
@@ -53,10 +56,37 @@ const EditProfile = ({profile:{profile, loading}, createProfile, getCurrentProfi
     facebook,
     twitter,
     instagram,
-    linkedin
+    linkedin,
+    photo
   } = formData;
 
-  
+  const fileUpload = async e => {
+    console.log(e.target.files[0]);
+    const files = e.target.files
+    const data =new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'olabanji')
+    setDelay(true)
+
+    const res =await fetch(
+      'https://api.cloudinary.com/v1_1/obanj/image/upload',
+      {
+        method: 'POST',
+        body: data
+      }
+    )
+      const file = await res.json()
+
+
+    setFormData({
+      ...formData,
+      photo: file.secure_url
+    });
+
+    setDelay(false)
+  };
+ 
+
   const onChange = e =>
   setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -130,6 +160,21 @@ const EditProfile = ({profile:{profile, loading}, createProfile, getCurrentProfi
           <textarea placeholder="A short bio of yourself" name="bio"  value={bio} onChange={(e)=> onChange(e)}></textarea>
           <small className="form-text">Tell us a little about yourself</small>
         </div>
+
+        <div className="form-group">
+          <input
+            type="file"
+            name="photo"
+            id="photo"
+            accept="image/*"
+            
+            onChange={fileUpload}
+          />
+          {delay? (<small style={{color:'red'}}> Loading....</small>):(
+            <img src={photo} alt="" style={{width: '50px'}}/>
+          )}
+          <small className="form-text">Upload your Photo</small>
+        </div> 
 
         <div className="my-2">
           <button

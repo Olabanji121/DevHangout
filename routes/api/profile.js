@@ -8,6 +8,7 @@ const { check, validationResult } = require("express-validator");
 const request = require ('request');
 const config = require ('config');
 
+
 // @route GET api/profile/me
 // @desc Get current user profile
 // @access Private
@@ -62,7 +63,8 @@ router.post(
       facebook,
       twitter,
       instagram,
-      linkedin
+      linkedin,
+      photo
     } = req.body;
 
     // Build profile object
@@ -73,6 +75,7 @@ router.post(
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
+    if(photo) profileFields.photo = photo
     if (githubusername) profileFields.githubusername = githubusername;
 
     if (skills) {
@@ -155,6 +158,8 @@ router.get("/user/:user_id", async (req, res) => {
     res.status(500).send({ msg: "Server Error ...." });
   }
 });
+
+
 
 // @route  DELETE api/profile
 // @desc   Delete profile, user and post

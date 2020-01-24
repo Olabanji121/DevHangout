@@ -58,7 +58,7 @@ const Register = ({setAlert, register, isAuthenticated}) => {
             type="email"
             placeholder="Email Address"
             name="email"
-            value={email}
+            value={email.toLowerCase()}
             onChange={e => onChange(e)}
           />
           <small className="form-text">

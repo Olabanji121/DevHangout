@@ -19,7 +19,7 @@ const Dashboard = ({
      // eslint-disable-next-line
   }, []);
 
-  return loading && profile === null ? (
+  return loading && !profile ? (
     <Spinner />
   ) : (
     <Fragment>
