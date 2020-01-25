@@ -1,16 +1,16 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { getPosts } from "../../actions/post";
-import { getProfiles } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import PostItem from "./PostItem"
+import PostForm from "./PostForm"
 import PropTypes from "prop-types";
 
 const Posts = ({ getPosts, post: { posts, loading }}) => {
   useEffect(() => {
     getPosts();
     
-  }, [getPosts, getProfiles]);
+  }, [getPosts]);
 
 //   const profile = profiles.map(profile=>{
 //       return profile
@@ -29,7 +29,7 @@ const Posts = ({ getPosts, post: { posts, loading }}) => {
            
           </p>
 
-          {/* Postform */}
+          <PostForm/>
           <div className="posts">
               {posts.map(post =>(
                   <PostItem key={post._id} post={post} /> 
