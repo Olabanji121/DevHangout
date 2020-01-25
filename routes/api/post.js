@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
+const checkUser = require("../../middleware/checkUser");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 const Post = require('../../models/Post')
@@ -26,13 +27,18 @@ router.post(
       }
       try {
         const user = await User.findById(req.user.id).select('-password');
-
+        const profile = await Profile.findOne({ user: req.user.id });
+        // console.log(profile.photo);
+        
+        
         const newPost = new Post({
             text: req.body.text,
             name: user.name,
             avatar: user.avatar,
-            user: req.user.id
+            user: req.user.id,
+            photo: profile.photo
         })
+        
 
         const post = await newPost.save();
         res.json(post)
@@ -232,13 +238,17 @@ router.post(
         }
         try {
           const user = await User.findById(req.user.id).select('-password');
-          const post = await Post.findById(req.params.id)
+          const post = await Post.findById(req.params.id);
+          const profile = await Profile.findOne({ user: req.user.id });
+        //   console.log(profile);
+          
   
           const newComment = {
               text: req.body.text,
               name: user.name,
               avatar: user.avatar,
-              user: req.user.id
+              user: req.user.id,
+              photo: profile.photo
           }
   
           post.comments.unshift(newComment);

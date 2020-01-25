@@ -6,6 +6,12 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
+   
+    profile: {
+        type: Schema.Types.ObjectId,
+        ref: 'profile'
+    },
+   
     text: {
         type: String,
         require: true
@@ -16,6 +22,9 @@ const PostSchema = new Schema({
     },
 
     avatar:{
+        type: String
+    },
+    photo:{
         type: String
     },
 
@@ -49,6 +58,9 @@ const PostSchema = new Schema({
                 type: String
             },
 
+            photo:{
+                type: String
+            },
 
             date:{
                 type: Date,
