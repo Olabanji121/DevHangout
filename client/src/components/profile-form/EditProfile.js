@@ -31,9 +31,10 @@ const EditProfile = ({profile:{profile, loading}, createProfile, getCurrentProfi
         company: loading || !profile.company? ' ': profile.company,
         website: loading || !profile.website? ' ': profile.website,
         location: loading || !profile.location? ' ': profile.location,
-        bio: loading || !profile.bio? ' ': profile.bio,
+        bio: loading || !profile.bio? '': profile.bio,
         status: loading || !profile.status? ' ': profile.status,
-        githubusername: loading || !profile.githubusername? '': profile.githubusername,
+        photo: loading || !profile.photo? ' ': profile.photo,
+        githubusername: loading || !profile.githubusername? ' ': profile.githubusername,
         skills: loading || !profile.skills? '': profile.skills.join(','),
         youtube: loading || !profile.social? '' : profile.social.youtube,
         facebook: loading || !profile.social? '': profile.social.facebook,
@@ -61,7 +62,7 @@ const EditProfile = ({profile:{profile, loading}, createProfile, getCurrentProfi
   } = formData;
 
   const fileUpload = async e => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     const files = e.target.files
     const data =new FormData()
     data.append('file', files[0])
@@ -129,7 +130,7 @@ const EditProfile = ({profile:{profile, loading}, createProfile, getCurrentProfi
         <div className="form-group">
           <input type="text" placeholder="Website" name="website" value={website} onChange={(e)=> onChange(e)} />
           <small className="form-text">
-            Could be your own or a company website
+          Could be your own or a company website (e.g  https://www.google.com or http://www.google.com)
           </small>
         </div>
         <div className="form-group">
@@ -171,7 +172,7 @@ const EditProfile = ({profile:{profile, loading}, createProfile, getCurrentProfi
             onChange={fileUpload}
           />
           {delay? (<small style={{color:'red'}}> Loading....</small>):(
-            <img src={photo} alt="" style={{width: '50px'}}/>
+            <img src={photo} alt="" style={{width: '50px'}} className="round-img"/>
           )}
           <small className="form-text">Upload your Photo</small>
         </div> 

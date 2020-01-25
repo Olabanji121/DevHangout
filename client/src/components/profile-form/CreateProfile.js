@@ -44,7 +44,7 @@ const CreateProfile = ({ createProfile, history }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const fileUpload = async e => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     const files = e.target.files
     const data =new FormData()
     data.append('file', files[0])
@@ -121,7 +121,7 @@ const CreateProfile = ({ createProfile, history }) => {
             onChange={e => onChange(e)}
           />
           <small className="form-text">
-            Could be your own or a company website
+          Could be your own or a company website (e.g https://www.google.com or http://www.google.com)
           </small>
         </div>
         <div className="form-group">
@@ -181,7 +181,7 @@ const CreateProfile = ({ createProfile, history }) => {
             onChange={fileUpload}
           />
           {loading? (<small style={{color:'red'}}> Loading....</small>):(
-            <img src={photo} alt="" style={{width: '50px'}}/>
+            <img src={photo} alt="" style={{width: '50px'}} className="round-img"/>
           )}
           <small className="form-text">Upload your Photo</small>
         </div> 
