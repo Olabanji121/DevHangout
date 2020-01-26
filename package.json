@@ -4,8 +4,8 @@
   "description": "connect with developers ",
   "main": "Server.js",
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server",
+    "start": "node Server.js",
+    "server": "nodemon Server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
